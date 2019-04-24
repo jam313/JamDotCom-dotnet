@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { TableDataSource } from './table-datasource';
 
@@ -8,14 +8,14 @@ import { TableDataSource } from './table-datasource';
   styleUrls: ['./general-table.component.css']
 })
 export class GeneralTableComponent implements OnInit {
+  @Input() data: any[]; 
+  @Input() columns: string[];
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: TableDataSource;
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
-
   ngOnInit() {
-    this.dataSource = new TableDataSource(this.paginator, this.sort);
+    this.dataSource = new TableDataSource(this.paginator, this.sort, this.data);
   }
 }
